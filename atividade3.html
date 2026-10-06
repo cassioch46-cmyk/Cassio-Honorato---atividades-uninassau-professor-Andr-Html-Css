@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vagas de Estágio</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; background: #f4f6fb; color: #1f2937; line-height: 1.5; }
+    .hero { background: #1d4ed8; color: #fff; text-align: center; padding: 70px 8%; }
+    .hero h1 { font-size: 2.4rem; margin-bottom: 10px; }
+    .hero p { margin-bottom: 24px; }
+    .botao { display: inline-block; padding: 12px 26px; background: #fff; color: #1d4ed8; border: none; border-radius: 6px; font-weight: bold; text-decoration: none; cursor: pointer; }
+    section { max-width: 900px; margin: 0 auto; padding: 50px 6%; }
+    h2 { margin-bottom: 20px; color: #1d4ed8; }
+    form { display: grid; gap: 14px; background: #fff; padding: 24px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+    label { font-weight: bold; font-size: .9rem; }
+    input, select { width: 100%; padding: 10px; margin-top: 4px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; }
+    form button { padding: 12px; background: #1d4ed8; color: #fff; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer; }
+    form button:hover { background: #1e40af; }
+    .tabela { overflow-x: auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 12px; text-align: left; border-bottom: 1px solid #e5e7eb; }
+    th { background: #dbeafe; }
+    .vazio { text-align: center; color: #6b7280; padding: 20px; }
+    footer { text-align: center; padding: 20px; background: #1f2937; color: #e5e7eb; font-size: .9rem; }
+  </style>
+</head>
+<body>
+ 
+  <div class="hero">
+    <h1>Vagas de Estágio</h1>
+    <p>Divulgue sua vaga e encontre estudantes para a sua equipe.</p>
+    <a class="botao" href="#cadastro">Cadastrar vaga</a>
+  </div>
+ 
+  <section id="cadastro">
+    <h2>Cadastrar vaga</h2>
+    <form id="form-vaga">
+      <div>
+        <label for="cargo">Cargo</label>
+        <input type="text" id="cargo" required placeholder="Ex.: Estagiário de TI">
+      </div>
+      <div>
+        <label for="empresa">Empresa</label>
+        <input type="text" id="empresa" required placeholder="Nome da empresa">
+      </div>
+      <div>
+        <label for="cidade">Cidade</label>
+        <input type="text" id="cidade" required placeholder="Ex.: Fortaleza - CE">
+      </div>
+      <div>
+        <label for="modalidade">Modalidade</label>
+        <select id="modalidade" required>
+          <option value="Presencial">Presencial</option>
+          <option value="Híbrido">Híbrido</option>
+          <option value="Remoto">Remoto</option>
+        </select>
+      </div>
+      <div>
+        <label for="contato">Contato (e-mail ou WhatsApp)</label>
+        <input type="text" id="contato" required placeholder="rh@empresa.com">
+      </div>
+      <button type="submit">Publicar vaga</button>
+    </form>
+  </section>
+ 
+  <section id="vagas">
+    <h2>Vagas divulgadas</h2>
+    <div class="tabela">
+      <table>
+        <thead>
+          <tr>
+            <th>Cargo</th>
+            <th>Empresa</th>
+            <th>Cidade</th>
+            <th>Modalidade</th>
+            <th>Contato</th>
+          </tr>
+        </thead>
+        <tbody id="lista"></tbody>
+      </table>
+    </div>
+  </section>
+ 
+  <footer>© 2026 Vagas de Estágio</footer>
+ 
+  <script>
+    const form = document.getElementById("form-vaga");
+    const lista = document.getElementById("lista");
+    let vagas = [];
+ 
+    try {
+      vagas = JSON.parse(localStorage.getItem("vagas")) || [];
+    } catch (e) {
+      vagas = [];
+    }
+ 
+    function mostrar() {
+      lista.innerHTML = "";
+      if (vagas.length === 0) {
+        lista.innerHTML = '<tr><td colspan="5" class="vazio">Nenhuma vaga cadastrada ainda.</td></tr>';
+        return;
+      }
+      vagas.forEach(function (v) {
+        const tr = document.createElement("tr");
+        [v.cargo, v.empresa, v.cidade, v.modalidade, v.contato].forEach(function (texto) {
+          const td = document.createElement("td");
+          td.textContent = texto;
+          tr.appendChild(td);
+        });
+        lista.appendChild(tr);
+      });
+    }
+ 
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      vagas.push({
+        cargo: document.getElementById("cargo").value,
+        empresa: document.getElementById("empresa").value,
+        cidade: document.getElementById("cidade").value,
+        modalidade: document.getElementById("modalidade").value,
+        contato: document.getElementById("contato").value
+      });
+      try {
+        localStorage.setItem("vagas", JSON.stringify(vagas));
+      } catch (e) {}
+      mostrar();
+      form.reset();
+      document.getElementById("vagas").scrollIntoView({ behavior: "smooth" });
+    });
+ 
+    mostrar();
+  </script>
+</body>
+</html>
