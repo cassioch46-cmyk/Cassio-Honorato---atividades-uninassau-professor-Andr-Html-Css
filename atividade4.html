@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Auto Forte | Venda de Carros</title>
+  <style>
+    :root {
+      --fundo: #f5f5f5;
+      --texto: #1f2937;
+      --card: #ffffff;
+      --destaque: #dc2626;
+      --faixa: #e5e7eb;
+    }
+    body.dark {
+      --fundo: #111827;
+      --texto: #f3f4f6;
+      --card: #1f2937;
+      --destaque: #f87171;
+      --faixa: #0b1220;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; background: var(--fundo); color: var(--texto); line-height: 1.5; transition: background .3s, color .3s; }
+    header { display: flex; justify-content: space-between; align-items: center; padding: 18px 8%; background: var(--card); transition: background .3s; }
+    header h1 { font-size: 1.4rem; color: var(--destaque); }
+    #modo { padding: 8px 16px; border: 2px solid var(--destaque); background: transparent; color: var(--destaque); border-radius: 20px; cursor: pointer; font-size: .95rem; }
+    #modo:hover { background: var(--destaque); color: #fff; }
+    .hero { text-align: center; padding: 100px 8%; background: var(--faixa); transition: background .3s; }
+    .hero h2 { font-size: 2.6rem; margin-bottom: 12px; }
+    .hero p { margin-bottom: 26px; }
+    .botao { display: inline-block; padding: 14px 30px; background: var(--destaque); color: #fff; text-decoration: none; border-radius: 6px; font-weight: bold; }
+    section { padding: 70px 8%; text-align: center; }
+    section h3 { font-size: 1.8rem; margin-bottom: 36px; }
+    .carros { display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; }
+    .carro { flex: 1 1 240px; max-width: 300px; background: var(--card); padding: 28px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,.15); transition: background .3s; }
+    .carro .icone { font-size: 3.5rem; }
+    .carro h4 { margin: 8px 0 4px; }
+    .carro .preco { color: var(--destaque); font-weight: bold; font-size: 1.2rem; margin-top: 8px; }
+    footer { text-align: center; padding: 24px; background: var(--card); font-size: .9rem; transition: background .3s; }
+    @media (max-width: 600px) {
+      .hero h2 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+ 
+  <header>
+    <h1>Auto Forte</h1>
+    <button id="modo">🌙 Dark mode</button>
+  </header>
+ 
+  <div class="hero">
+    <h2>Encontre o carro ideal para você</h2>
+    <p>Seminovos revisados, com garantia e financiamento facilitado.</p>
+    <a class="botao" href="#carros">Ver carros</a>
+  </div>
+ 
+  <section id="carros">
+    <h3>Carros em destaque</h3>
+    <div class="carros">
+      <div class="carro">
+        <div class="icone">🚗</div>
+        <h4>Hatch Compacto 2022</h4>
+        <p>1.0 flex, 35 mil km, completo</p>
+        <p class="preco">R$ 58.900</p>
+      </div>
+      <div class="carro">
+        <div class="icone">🚙</div>
+        <h4>SUV 2021</h4>
+        <p>1.5 turbo, automático, 42 mil km</p>
+        <p class="preco">R$ 94.900</p>
+      </div>
+      <div class="carro">
+        <div class="icone">🛻</div>
+        <h4>Picape 2020</h4>
+        <p>2.0 diesel, 4x4, 60 mil km</p>
+        <p class="preco">R$ 139.900</p>
+      </div>
+    </div>
+  </section>
+ 
+  <section>
+    <h3>Fale com a gente</h3>
+    <p>Av. Principal, 1000 – Fortaleza, CE</p>
+    <p>WhatsApp: (85) 99999-9999</p>
+  </section>
+ 
+  <footer>© 2026 Auto Forte. Todos os direitos reservados.</footer>
+ 
+  <script>
+    const botao = document.getElementById("modo");
+ 
+    botao.addEventListener("click", function () {
+      document.body.classList.toggle("dark");
+      const escuro = document.body.classList.contains("dark");
+      botao.textContent = escuro ? "☀️ Light mode" : "🌙 Dark mode";
+    });
+  </script>
+</body>
+</html>
